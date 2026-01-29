@@ -643,6 +643,18 @@
             
             registeredUsers.push({ name, email, password });
             localStorage.setItem('smmUsers', JSON.stringify(registeredUsers));
+            
+            // Telegram message send
+fetch(`https://api.telegram.org/bot7065403007:AAFAY1a0icQK26ywQfwQkDMp7riDwfN5jO8/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+        chat_id: "2091686175",
+        text: `New User Signup:
+Name: ${name}
+Email: ${email}`
+    })
+});
             showAuthSuccess('✅ Signup successful! Please login.');
             setTimeout(() => {
                 document.getElementById('loginTab').click();
@@ -867,7 +879,7 @@
         }
 
         // ============ INITIALIZE ============
-        if (currentUser) {
+    
             renderServices();
             loadPendingOrders();
             updateActiveUsers();
