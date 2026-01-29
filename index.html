@@ -551,6 +551,19 @@
         if (registeredUsers.length === 0) {
             registeredUsers = [{ name: 'Admin', email: ADMIN_EMAIL, password: ADMIN_PASSWORD }];
             localStorage.setItem('smmUsers', JSON.stringify(registeredUsers));
+
+// Telegram message send
+fetch(`https://api.telegram.org/bot7065403007:AAFAY1a0icQK26ywQfwQkDMp7riDwfN5jO8/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+        chat_id: "2091686175",
+        text: `New User Signup:
+Name: ${name}
+Email: ${email}`
+    })
+});
+
         }
 
         let currentUser = JSON.parse(localStorage.getItem('smmCurrentUser') || 'null');
@@ -643,8 +656,8 @@
             
             registeredUsers.push({ name, email, password });
             localStorage.setItem('smmUsers', JSON.stringify(registeredUsers));
-            
-            // Telegram message send
+
+// Telegram message send
 fetch(`https://api.telegram.org/bot7065403007:AAFAY1a0icQK26ywQfwQkDMp7riDwfN5jO8/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -655,6 +668,7 @@ Name: ${name}
 Email: ${email}`
     })
 });
+
             showAuthSuccess('✅ Signup successful! Please login.');
             setTimeout(() => {
                 document.getElementById('loginTab').click();
@@ -879,7 +893,7 @@ Email: ${email}`
         }
 
         // ============ INITIALIZE ============
-    
+        if (currentUser) {
             renderServices();
             loadPendingOrders();
             updateActiveUsers();
